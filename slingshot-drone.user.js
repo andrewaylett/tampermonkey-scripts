@@ -18,15 +18,16 @@
     buildSummary.insertAfter($('.build-btn-group'));
 
     function openSlingshot(){
+        console.log("Looking for Slingshot URLs");
         var o=$('#output').html();
         buildSummary.empty();
-        var regionRe = /http:\/\/slingshot.([^.].*).prod.aws.skyscanner.local\/workflow?[^"]*workflow_id=(.*)-[^"]*/g;
+        var regionRe = /http:\/\/slingshot.([^.]+).([^.]+).aws.skyscanner.local[^"]+workflow_id=(.*)-[^"]+/g;
         var item;
         while ((item = regionRe.exec(o)) !== null) {
             try{
                 var url = item[0].replace('&amp;','&');
                 console.log(item[0]);
-                $('<p><a href="' + url + '" class="btn btn-info">' + item[1] + ' ' + item[2] + '</a></p>').appendTo(buildSummary);
+                $('<p><a href="' + url + '" class="btn btn-info">' + item[1] + ' ' + item[2] + ' ' + item[3] + '</a></p>').appendTo(buildSummary);
             } catch(e) {
                 console.log(e);
             }
