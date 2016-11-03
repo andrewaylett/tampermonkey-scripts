@@ -1,2 +1,2 @@
-# tampermonky-scripts
+# tampermonkey-scripts
 TamperMonkey scripts
