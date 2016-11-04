@@ -13,13 +13,11 @@
 (function() {
     'use strict';
 
-    var timer = window.setInterval(openSlingshot,1000);
     var buildSummary = $('<div class="build-summary" id="links">');
-    buildSummary.insertAfter($('.build-btn-group'));
 
-    function openSlingshot(){
+    function openSlingshot() {
         console.log("Looking for Slingshot URLs");
-        var o=$('#output').html();
+        var o=$(outputElement).html();
         buildSummary.empty();
         var regionRe = /http:\/\/slingshot.([^.]+).([^.]+).aws.skyscanner.local[^"]+workflow_id=(.*)-[^"]+/g;
         var item;
@@ -32,10 +30,22 @@
                 console.log(e);
             }
         }
-        if ($('.success').length > 0) {
-            clearInterval(timer);
-        }
     }
 
-    window.setTimeout(openSlingshot, 0);
+    var outputElement = document.getElementById('output');
+
+    if (outputElement) {
+        buildSummary.insertAfter($('.build-btn-group'));
+
+        // create an observer instance
+        var observer = new MutationObserver(openSlingshot);
+
+        // configuration of the observer:
+        var config = { attributes: true, childList: true, characterData: true };
+
+        // pass in the target node, as well as the observer options
+        observer.observe(outputElement, config);
+
+        window.setTimeout(openSlingshot, 0);
+    }
 })();
