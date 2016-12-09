@@ -13,6 +13,10 @@
 (function() {
     'use strict';
 
+    if (document.getElementsByClassName("navbar-form").length === 0) {
+        window.location = '/authorize';
+    }
+
     var buildSummary = $('<div class="build-summary" id="links">');
 
     function openSlingshot() {
