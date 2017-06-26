@@ -23,7 +23,7 @@
         console.log("Looking for Slingshot URLs");
         var o=$(outputElement).html();
         buildSummary.empty();
-        var regionRe = /http:\/\/slingshot.([^.]+).([^.]+).aws.skyscnr.com[^"]+workflow_id=(.*)-[^"]+/g;
+        var regionRe = /https:\/\/slingshot.([^.]+).([^.]+).aws.skyscnr.com[^"]+workflow_id=(.*)-[^"]+/g;
         var item;
         while ((item = regionRe.exec(o)) !== null) {
             try{
