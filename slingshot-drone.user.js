@@ -23,13 +23,13 @@
         console.log("Looking for Slingshot URLs");
         var o=$(outputElement).html();
         buildSummary.empty();
-        var regionRe = /https:\/\/slingshot.([^.]+).([^.]+).aws.skyscnr.com[^"]+workflow_id=(.*)-[^"]+/g;
+        var regionRe = /https:\/\/slingshot.skyscannertools.net\/#\!\/workflow\/([^"/]+)\-[\d]+\/.+\/([\w\d-_]+)/g;
         var item;
         while ((item = regionRe.exec(o)) !== null) {
             try{
                 var url = item[0].replace('&amp;','&');
                 console.log(item[0]);
-                $('<p><a href="' + url + '" class="btn btn-info">' + item[1] + ' ' + item[2] + ' ' + item[3] + '</a></p>').appendTo(buildSummary);
+                $('<p><a href="' + url + '" class="btn btn-info" target="_blank">' + item[1] + ' ' + item[2] + '</a></p>').appendTo(buildSummary);
             } catch(e) {
                 console.log(e);
             }
