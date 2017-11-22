@@ -12,7 +12,7 @@
 
 (function() {
     'use strict';
-
+    
     if (document.getElementsByClassName("navbar-form").length === 0) {
         window.location = '/authorize';
     }
@@ -23,17 +23,20 @@
         console.log("Looking for Slingshot URLs");
         var o=$(outputElement).html();
         buildSummary.empty();
-        var regionRe = /https:\/\/slingshot.([^.]+).([^.]+).aws.skyscnr.com[^"]+workflow_id=(.*)-[^"]+/g;
+        var regionRe = /(https:\/\/slingshot(-[^.]*)?.([^.]+).([^.]+).aws.skyscnr.com[^"]+workflow_id=(.*)-[^"]+|https:\/\/slingshot.skyscannertools.net\/#!\/workflow\/[^"]+\/([^"/]+))/g;
         var item;
         while ((item = regionRe.exec(o)) !== null) {
             try{
                 var url = item[0].replace('&amp;','&');
                 console.log(item[0]);
-                $('<p><a href="' + url + '" class="btn btn-info">' + item[1] + ' ' + item[2] + ' ' + item[3] + '</a></p>').appendTo(buildSummary);
+                $('<p><a href="' + url + '" class="btn btn-info">' + item[1] + ' ' + item[2] + item[4] + ' ' + item[3] + '</a></p>').appendTo(buildSummary);
             } catch(e) {
                 console.log(e);
             }
         }
+
+        var linkRe = /https?:\/\/[^ "]+/g;
+        outputElement.innerHtml = "blah";//o.replace(linkRe, '<a href="$&">$&</a>');
     }
 
     var outputElement = document.getElementById('output');
